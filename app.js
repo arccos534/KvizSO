@@ -26,7 +26,16 @@ function renumberRows() {
 
 function attachRowHandlers(row) {
   row.querySelectorAll('.score-input').forEach((input) => {
+    if (input.value === '0') {
+      input.value = '';
+    }
+
     input.addEventListener('input', () => recalcRow(row));
+    input.addEventListener('focus', () => {
+      if (input.value === '0') {
+        input.value = '';
+      }
+    });
     input.addEventListener('blur', () => {
       const cleaned = clampScore(input.value);
       input.value = cleaned > 0 ? String(cleaned) : '';
