@@ -120,7 +120,7 @@ async function exportPresentation() {
     ]));
 
     const tableRows = [headerRow, ...bodyRows];
-    const rowHeights = [0.52, ...new Array(bodyRows.length).fill(0.44)];
+    const rowHeights = [0.34, ...new Array(bodyRows.length).fill(0.26)];
 
     slide.addTable(tableRows, {
       x: 0,
