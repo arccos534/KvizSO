@@ -29,6 +29,10 @@ function renumberRows() {
 function attachRowHandlers(row) {
   row.querySelectorAll('.score-input').forEach((input) => {
     input.addEventListener('input', () => recalcRow(row));
+    input.addEventListener('focus', () => {
+      // Replace existing value on first keypress instead of appending to "0".
+      input.select();
+    });
   });
 }
 
