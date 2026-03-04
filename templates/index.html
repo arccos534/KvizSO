@@ -1,0 +1,67 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Квиз - Таблица результатов</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-badge">
+          <img src="{{ url_for('static', filename='icon_so_cropped.png') }}" alt="Логотип" />
+        </div>
+        <div class="logo-text">КВИЗ</div>
+      </div>
+      <div class="menu-title">Меню</div>
+      <div class="controls">
+        <button class="btn-add" id="addRowBtn">
+          <span class="btn-icon plus">+</span>
+          <span>Добавить строку</span>
+        </button>
+        <button class="btn-remove" id="removeRowBtn">
+          <span class="btn-icon minus">-</span>
+          <span>Удалить строку</span>
+        </button>
+        <button class="btn-clear" id="clearBtn">
+          <span class="btn-icon clear">×</span>
+          <span>Очистить все</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="content">
+      <table>
+        <thead>
+          <tr>
+            <th class="col-num">Номер</th>
+            <th class="col-name">Название команды</th>
+            <th class="col-score">Раунд 1</th>
+            <th class="col-score">Раунд 2</th>
+            <th class="col-score">Результат</th>
+          </tr>
+        </thead>
+        <tbody id="teamsBody"></tbody>
+      </table>
+      <div class="status" id="status"></div>
+      <div class="footer">
+        <button class="btn-export" id="exportBtn">Сохранить таблицу в презентацию</button>
+      </div>
+    </main>
+  </div>
+
+  <template id="rowTemplate">
+    <tr>
+      <td class="col-num row-number"></td>
+      <td><input class="team-input" type="text" placeholder="Команда" /></td>
+      <td><input class="score-input round1" type="number" min="0" step="1" value="0" /></td>
+      <td><input class="score-input round2" type="number" min="0" step="1" value="0" /></td>
+      <td class="sum-cell">0</td>
+    </tr>
+  </template>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
