@@ -104,35 +104,35 @@ async function exportPresentation() {
     const slide = pptx.addSlide();
 
     const headerRow = [
-      { text: 'Место', options: { bold: true, align: 'center', valign: 'middle', fill: { color: 'F78F6F' } } },
-      { text: 'Название команды', options: { bold: true, align: 'left', valign: 'middle', fill: { color: 'F78F6F' } } },
-      { text: 'Раунд 1', options: { bold: true, align: 'center', valign: 'middle', fill: { color: 'F78F6F' } } },
-      { text: 'Раунд 2', options: { bold: true, align: 'center', valign: 'middle', fill: { color: 'F78F6F' } } },
-      { text: 'Результат', options: { bold: true, align: 'center', valign: 'middle', fill: { color: 'F78F6F' } } },
+      { text: 'Место', options: { bold: false, align: 'center', valign: 'middle', fill: { color: 'E59C85' } } },
+      { text: 'Название команды', options: { bold: false, align: 'center', valign: 'middle', fill: { color: 'E59C85' } } },
+      { text: 'Раунд 1', options: { bold: false, align: 'center', valign: 'middle', fill: { color: 'E59C85' } } },
+      { text: 'Раунд 2', options: { bold: false, align: 'center', valign: 'middle', fill: { color: 'E59C85' } } },
+      { text: 'Результат', options: { bold: false, align: 'center', valign: 'middle', fill: { color: 'E59C85' } } },
     ];
 
     const bodyRows = rows.map((r) => ([
-      { text: String(r.place), options: { align: 'center', valign: 'middle', fill: { color: 'F3A58E' } } },
-      { text: String(r.team_name), options: { align: 'left', valign: 'middle', fill: { color: 'F3A58E' } } },
-      { text: String(r.round1), options: { align: 'center', valign: 'middle', fill: { color: 'F3A58E' } } },
-      { text: String(r.round2), options: { align: 'center', valign: 'middle', fill: { color: 'F3A58E' } } },
-      { text: String(r.total), options: { align: 'center', valign: 'middle', fill: { color: 'F3A58E' } } },
+      { text: String(r.place), options: { align: 'center', valign: 'middle', fill: { color: 'E59C85' } } },
+      { text: String(r.team_name), options: { align: 'center', valign: 'middle', fill: { color: 'E59C85' } } },
+      { text: String(r.round1), options: { align: 'center', valign: 'middle', fill: { color: 'E59C85' } } },
+      { text: String(r.round2), options: { align: 'center', valign: 'middle', fill: { color: 'E59C85' } } },
+      { text: String(r.total), options: { align: 'center', valign: 'middle', fill: { color: 'E59C85' } } },
     ]));
 
     const tableRows = [headerRow, ...bodyRows];
-    const rowHeights = [0.34, ...new Array(bodyRows.length).fill(0.26)];
+    const rowHeights = new Array(tableRows.length).fill(0.42);
 
     slide.addTable(tableRows, {
       x: 0,
-      y: 0.2,
-      w: 13.33,
+      y: 0,
+      w: 13.333,
       fontFace: 'Calibri',
-      fontSize: 16,
+      fontSize: 17,
       color: '000000',
       border: { pt: 1, color: '000000' },
       align: 'center',
       valign: 'middle',
-      colW: [1.1, 5.5, 2.2, 2.2, 2.33],
+      colW: [1.2, 4.8, 2.0, 2.0, 3.333],
       rowH: rowHeights,
       margin: 0.03,
       autoPage: false,
