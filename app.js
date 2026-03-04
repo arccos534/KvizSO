@@ -102,30 +102,38 @@ async function exportPresentation() {
     pptx.title = 'Квиз - таблица результатов';
 
     const slide = pptx.addSlide();
-    const header = ['Место', 'Название команды', 'Раунд 1', 'Раунд 2', 'Результат'];
-    const tableRows = [header, ...rows.map((r) => [r.place, r.team_name, r.round1, r.round2, r.total])];
+
+    const headerRow = [
+      { text: 'Место', options: { bold: true, align: 'center', valign: 'middle', fill: { color: 'F78F6F' } } },
+      { text: 'Название команды', options: { bold: true, align: 'left', valign: 'middle', fill: { color: 'F78F6F' } } },
+      { text: 'Раунд 1', options: { bold: true, align: 'center', valign: 'middle', fill: { color: 'F78F6F' } } },
+      { text: 'Раунд 2', options: { bold: true, align: 'center', valign: 'middle', fill: { color: 'F78F6F' } } },
+      { text: 'Результат', options: { bold: true, align: 'center', valign: 'middle', fill: { color: 'F78F6F' } } },
+    ];
+
+    const bodyRows = rows.map((r) => ([
+      { text: String(r.place), options: { align: 'center', valign: 'middle', fill: { color: 'F3A58E' } } },
+      { text: String(r.team_name), options: { align: 'left', valign: 'middle', fill: { color: 'F3A58E' } } },
+      { text: String(r.round1), options: { align: 'center', valign: 'middle', fill: { color: 'F3A58E' } } },
+      { text: String(r.round2), options: { align: 'center', valign: 'middle', fill: { color: 'F3A58E' } } },
+      { text: String(r.total), options: { align: 'center', valign: 'middle', fill: { color: 'F3A58E' } } },
+    ]));
+
+    const tableRows = [headerRow, ...bodyRows];
 
     slide.addTable(tableRows, {
       x: 0,
       y: 0,
       w: 13.33,
-      h: Math.min(7.5, 0.55 + tableRows.length * 0.45),
+      h: 7.5,
       fontFace: 'Calibri',
       fontSize: 16,
       color: '000000',
-      fill: 'F3A58E',
-      border: { pt: 1, color: '000000' },
-      valign: 'mid',
+      border: { type: 'solid', pt: 1, color: '000000' },
+      valign: 'middle',
       align: 'center',
-      colW: [1.2, 3.4, 1.9, 1.9, 2.0],
-      rowH: 0.45,
-      autoFit: false,
+      colW: [1.1, 5.5, 2.2, 2.2, 2.33],
       margin: 0.03,
-      bold: false,
-      firstRow: true,
-      firstRowFill: 'F78F6F',
-      firstRowColor: '000000',
-      firstRowBold: true,
     });
 
     const now = new Date();
