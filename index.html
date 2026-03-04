@@ -1,89 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!doctype html>
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сервис Квиз</title>
-
-    <link rel="stylesheet" href="src/css/index.css">
-    <link rel="stylesheet" href="src/css/fonts.css">
-
-    <link rel="stylesheet" href="src/css/media/index_media.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Квиз - Таблица результатов</title>
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-    <main>
-        <div class="main__left">
-            <div class="block_icon">
-                <img src="src/img/icon_so.png" alt="">
-                <span>квиз</span>
-            </div>
-
-            <div class="block_menu">
-                <h2>Меню</h2>
-
-                <div class="block_change_table">
-                    <button class="button_start" id="button-start">
-                        <span><img src="src/img/icon_start.png" alt=""></span>
-                        Начать
-                    </button>
-
-                    <button class="button_add none" id="button-add-tr">
-                        <span><img src="src/img/icon_add.png" alt=""></span>
-                        Добавить строку
-                    </button>
-
-                    <button class="button_remove none" id="button-remove-tr">
-                        <span><img src="src/img/icon_minus.png" alt=""></span>
-                        Удалить строку
-                    </button>
-
-                    <button class="button_remove_full none" id="button-remove-full-tr">
-                        <span><img src="src/img/icon_remove_full.png" alt=""></span>
-                        Очистить все
-                    </button>
-                </div>
-            </div>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-badge">
+          <img src="./icon_so_cropped.png" alt="Логотип" />
         </div>
+        <div class="logo-text">КВИЗ</div>
+      </div>
+      <div class="menu-title">Меню</div>
+      <div class="controls">
+        <button class="btn-add" id="addRowBtn">
+          <span class="btn-icon plus">+</span>
+          <span>Добавить строку</span>
+        </button>
+        <button class="btn-remove" id="removeRowBtn">
+          <span class="btn-icon minus">-</span>
+          <span>Удалить строку</span>
+        </button>
+        <button class="btn-clear" id="clearBtn">
+          <span class="btn-icon clear">×</span>
+          <span>Очистить все</span>
+        </button>
+      </div>
+    </aside>
 
-        <div class="main__right">
-            <div class="block_table">
-				<table id="table">
-					<thead>
-						<tr>
-							<th>Номер</th>
-							<th>Название команды</th>
-							<th>Раунд 1</th>
-							<th>Раунд 2</th>
-							<th>Раунд 3</th>
-							<th>Раунд 4</th>
-							<th>Результат</th>
-						</tr>
-					</thead>
-
-					<tbody>
-						<tr class="null_tr">
-							<td>0</td>
-							<td>-</td>
-							<td>-</td>
-							<td>-</td>
-							<td>-</td>
-							<td>-</td>
-							<td>-</td>
-						</tr>
-					</tbody>
-				</table>
-            </div>
-
-            <div class="block_button">
-                <button id="button">Сохранить таблицу в презентацию</button>
-            </div>
-        </div>
+    <main class="content">
+      <table>
+        <thead>
+          <tr>
+            <th class="col-num">Номер</th>
+            <th class="col-name">Название команды</th>
+            <th class="col-score">Раунд 1</th>
+            <th class="col-score">Раунд 2</th>
+            <th class="col-score">Результат</th>
+          </tr>
+        </thead>
+        <tbody id="teamsBody"></tbody>
+      </table>
+      <div class="status" id="status"></div>
+      <div class="footer">
+        <button class="btn-export" id="exportBtn">Сохранить таблицу в презентацию</button>
+      </div>
     </main>
+  </div>
 
-    <!-- <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script> -->
-    <script src="PptxGenJS/dist/pptxgen.bundle.js"></script>
-    <script src="src/js/index.js"></script>
-    <script src="src/js/table_change.js"></script>
-    <script src="src/js/media.js"></script>
+  <template id="rowTemplate">
+    <tr>
+      <td class="col-num row-number"></td>
+      <td><input class="team-input" type="text" placeholder="Команда" /></td>
+      <td><input class="score-input round1" type="number" min="0" step="1" value="0" /></td>
+      <td><input class="score-input round2" type="number" min="0" step="1" value="0" /></td>
+      <td class="sum-cell">0</td>
+    </tr>
+  </template>
+
+  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
