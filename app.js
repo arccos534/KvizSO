@@ -103,46 +103,40 @@ async function exportPresentation() {
 
     const slide = pptx.addSlide();
 
-    const header = [['Место', 'Название команды', 'Раунд 1', 'Раунд 2', 'Результат']];
-    const body = rows.map((r) => [String(r.place), String(r.team_name), String(r.round1), String(r.round2), String(r.total)]);
+    const headerRow = [
+      { text: 'Место', options: { bold: true, align: 'center', valign: 'middle', fill: { color: 'F78F6F' } } },
+      { text: 'Название команды', options: { bold: true, align: 'left', valign: 'middle', fill: { color: 'F78F6F' } } },
+      { text: 'Раунд 1', options: { bold: true, align: 'center', valign: 'middle', fill: { color: 'F78F6F' } } },
+      { text: 'Раунд 2', options: { bold: true, align: 'center', valign: 'middle', fill: { color: 'F78F6F' } } },
+      { text: 'Результат', options: { bold: true, align: 'center', valign: 'middle', fill: { color: 'F78F6F' } } },
+    ];
 
-    // Header row
-    slide.addTable(header, {
+    const bodyRows = rows.map((r) => ([
+      { text: String(r.place), options: { align: 'center', valign: 'middle', fill: { color: 'F3A58E' } } },
+      { text: String(r.team_name), options: { align: 'left', valign: 'middle', fill: { color: 'F3A58E' } } },
+      { text: String(r.round1), options: { align: 'center', valign: 'middle', fill: { color: 'F3A58E' } } },
+      { text: String(r.round2), options: { align: 'center', valign: 'middle', fill: { color: 'F3A58E' } } },
+      { text: String(r.total), options: { align: 'center', valign: 'middle', fill: { color: 'F3A58E' } } },
+    ]));
+
+    const tableRows = [headerRow, ...bodyRows];
+    const rowHeights = [0.52, ...new Array(bodyRows.length).fill(0.44)];
+
+    slide.addTable(tableRows, {
       x: 0,
-      y: 0,
+      y: 0.2,
       w: 13.33,
-      h: 0.55,
       fontFace: 'Calibri',
       fontSize: 16,
       color: '000000',
-      fill: 'F78F6F',
       border: { pt: 1, color: '000000' },
       align: 'center',
+      valign: 'middle',
       colW: [1.1, 5.5, 2.2, 2.2, 2.33],
-      rowH: [0.55],
+      rowH: rowHeights,
       margin: 0.03,
-      bold: true,
+      autoPage: false,
     });
-
-    // Body rows
-    if (body.length > 0) {
-      const bodyHeight = Math.min(7.5 - 0.55, body.length * 0.45);
-      slide.addTable(body, {
-        x: 0,
-        y: 0.55,
-        w: 13.33,
-        h: bodyHeight,
-        fontFace: 'Calibri',
-        fontSize: 16,
-        color: '000000',
-        fill: 'F3A58E',
-        border: { pt: 1, color: '000000' },
-        align: 'center',
-        colW: [1.1, 5.5, 2.2, 2.2, 2.33],
-        rowH: 0.45,
-        margin: 0.03,
-      });
-    }
 
     const now = new Date();
     const stamp = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}_${String(now.getHours()).padStart(2, '0')}-${String(now.getMinutes()).padStart(2, '0')}`;
