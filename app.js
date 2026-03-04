@@ -15,8 +15,6 @@ function clampScore(value) {
 function recalcRow(row) {
   const r1 = clampScore(row.querySelector('.round1').value);
   const r2 = clampScore(row.querySelector('.round2').value);
-  row.querySelector('.round1').value = r1;
-  row.querySelector('.round2').value = r2;
   row.querySelector('.sum-cell').textContent = String(r1 + r2);
 }
 
@@ -29,9 +27,10 @@ function renumberRows() {
 function attachRowHandlers(row) {
   row.querySelectorAll('.score-input').forEach((input) => {
     input.addEventListener('input', () => recalcRow(row));
-    input.addEventListener('focus', () => {
-      // Replace existing value on first keypress instead of appending to "0".
-      input.select();
+    input.addEventListener('blur', () => {
+      const cleaned = clampScore(input.value);
+      input.value = cleaned > 0 ? String(cleaned) : '';
+      recalcRow(row);
     });
   });
 }
@@ -39,8 +38,8 @@ function attachRowHandlers(row) {
 function addRow(name = '', r1 = 0, r2 = 0) {
   const row = rowTemplate.content.firstElementChild.cloneNode(true);
   row.querySelector('.team-input').value = name;
-  row.querySelector('.round1').value = clampScore(r1);
-  row.querySelector('.round2').value = clampScore(r2);
+  row.querySelector('.round1').value = r1 > 0 ? String(clampScore(r1)) : '';
+  row.querySelector('.round2').value = r2 > 0 ? String(clampScore(r2)) : '';
   attachRowHandlers(row);
   teamsBody.appendChild(row);
   recalcRow(row);
